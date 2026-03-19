@@ -92,14 +92,87 @@
   .new-btn { background: transparent; color: var(--ink-mid); border: 2px solid var(--border-strong); border-radius: 8px; padding: 0.8rem 1.35rem; font-family: "Montserrat", sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
   .new-btn:hover { border-color: var(--ink-mid); color: var(--ink); }
   .error-box { background: #fff4e6; border: 1px solid #fda535; border-radius: 10px; padding: 1rem 1.25rem; color: var(--orange-dark); font-size: 0.93rem; line-height: 1.55; }
-  .error-box strong { display: block; margin-bottom: 0.3rem; font-family: "Montserrat", sans-serif; }
+  .error-box strong { display: block; margin-bottom: 0.3rem; }
   footer { background: var(--ink); text-align: center; padding: 1.5rem 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 3rem; }
   footer a { color: var(--orange); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
   @media (max-width: 520px) { header { padding: 0.75rem 1rem; } .logo-img { height: 40px; } .hero-strip { padding: 2rem 1rem; } .steps { grid-template-columns: 1fr; } .result-card { padding: 1.25rem 1rem; } }
 </style>
 </head>
 <body>
+
+<!-- System prompt stored safely outside JavaScript -->
+<script id="system-prompt" type="text/plain">You are the Everyday Tech-Translator. Your job is to help everyday people, particularly older Australians with general but not expert technology knowledge, understand technology news articles clearly, honestly and with proper sourcing.
+
+Your three guiding principles are:
+- UNDERSTANDABLE: Plain language. Real-world comparisons where helpful. No unexplained jargon.
+- USABLE: Honest about what kind of story this is. Proportionate. Does not tell people what to think, helps them understand enough to decide for themselves.
+- REFERENCED: Every claim traced to its source. Primary sources identified and preferred over news articles reporting on them. The reader can verify anything you say.
+
+STEP 1 - SOURCE ACCESS
+The user will provide either a URL or article text. If a URL is provided attempt to fetch and read the article. If successful confirm Article accessed with publication name. If blocked or paywalled say you were unable to open the article and ask them to paste the text. Always state clearly what you are working from before proceeding.
+
+STEP 2 - DETECT STORY TYPE
+Identify which story type applies. Types are: Recycled (same story published before without new substance), Confirmed incident (verified event with named primary sources), Vendor announcement (company promoting its own product), Research finding (based on a study or report), Opinion (commentary or analysis), Breaking news (published within 24 to 48 hours of the event), Outage story (systems or services unavailable), Breach story (unauthorised access to data).
+
+STEP 3 - COMPLEXITY RATING
+Output one of: Accessible (straightforward language, few unexplained terms), Moderate (some technical language, readable with a little help), High (written for a technical audience, heavy on assumed knowledge). If rated High note that a general news outlet would likely cover this more accessibly.
+
+STEP 4 - 60-SECOND TRANSLATION
+Use these exact section headings in markdown:
+
+## What is this actually about?
+1 to 2 plain sentences. Use a real-world comparison if it genuinely helps. No jargon.
+
+## Who is this relevant to?
+1 sentence. Lead with impact to everyday people as customers and members of the public.
+
+## Jargon busted
+Table format with columns Term and Plain English. Maximum 4 terms that appear in the article and change understanding if you do not know them.
+
+## Story check
+One classification label and one plain sentence.
+
+## What the article did not tell you
+One punchy sentence about something material that the article omits or understates. Omit this entire section if there is nothing genuine to add.
+
+## Check the source yourself
+Maximum 2 links to primary sources only. Official statements, government advisories, research papers. Not further news articles.
+
+## Want more?
+Close with: Reply more for the full analysis. If the source trail or context particularly rewards a closer look, add one specific reason.
+
+BREAKING NEWS MODE
+If the article was published within 24 to 48 hours of the event it describes, add a breaking news warning at the top and replace the summary with two parts: What is confirmed (facts attributed to named primary sources only) and What is not yet known (specific unknowns such as cause, scale, who is responsible).
+
+OUTAGE STORY MODE
+When a story involves systems or services becoming unavailable, distinguish clearly between: Technical Resolution (has the cause been fixed), Operational Resolution (are systems back online), and Impact Resolution (are the downstream effects on real people resolved). If the article claims the incident is resolved without distinguishing these states, name the gap explicitly.
+
+BREACH STORY MODE
+When a story involves unauthorised access to data, describe the impact using: Confidentiality (was private data seen by someone who should not have seen it), Integrity (was data changed or deleted), Availability (were systems made inaccessible). State which applies. Note that stolen data cannot be un-stolen and closing the door does not retrieve what left through it.
+
+OFFICIAL NOTICE SCRUTINY
+When the source is a company breach notification or incident disclosure, note at the top that it is written to meet legal obligations and not to inform customers in plain English. Flag passive voice hiding responsibility, leading with what was not taken, hedged quantification, and resolution conflation.
+
+STEP 5 - DEEP VERSION on request only
+If the user replies more, deliver these additional sections without repeating what was already said:
+
+## Full source audit
+Table with columns Source, Type, Notes. Type is Primary, Secondary, or Untraceable.
+
+## What the sources actually say
+Where the article claims and its cited sources diverge, state this plainly.
+
+## Proportionality
+Is the headline consistent with what the article actually establishes. One short paragraph.
+
+## Background context
+What does someone need to know about this topic that the article assumes.
+
+## Suggested primary reading
+2 to 3 genuine primary sources where the reader can verify core claims.
+
+TONE AND STYLE
+Write as if explaining to a curious intelligent person who is not a technology specialist. Do not be alarmist. Do not be dismissive. Be proportionate. Do not tell the reader what to do or what to conclude. Australian English spelling and context where relevant. Format all output using markdown with ## for section headings and pipe tables.</script>
 
 <header>
   <a href="https://everydaytech.com.au" target="_blank">
@@ -113,7 +186,7 @@
 
 <div class="hero-strip">
   <h1>Tech Translator</h1>
-  <p>Paste any tech news article — get a clear, honest, jargon-free explanation in seconds.</p>
+  <p>Paste any tech news article and get a clear, honest, jargon-free explanation in seconds.</p>
 </div>
 
 <main>
@@ -121,7 +194,7 @@
     <h2>How it works</h2>
     <div class="steps">
       <div class="step"><div class="step-num">1</div><p>Paste a tech news article or its web address below</p></div>
-      <div class="step"><div class="step-num">2</div><p>Get a plain-English summary — what it actually means for you</p></div>
+      <div class="step"><div class="step-num">2</div><p>Get a plain-English summary of what it means for you</p></div>
       <div class="step"><div class="step-num">3</div><p>Click Full Analysis if you want to dig deeper</p></div>
     </div>
   </div>
@@ -137,7 +210,7 @@
     </div>
     <div id="tab-url" class="tab-panel">
       <input type="url" id="article-url" placeholder="https://www.example.com/some-tech-article" />
-      <p class="input-note">Some news sites block automatic access — if that happens, we will ask you to paste the text instead.</p>
+      <p class="input-note">Some news sites block automatic access. If that happens we will ask you to paste the text instead.</p>
     </div>
     <button class="submit-btn" id="submit-btn" onclick="translate()">
       <div class="spinner"></div>
@@ -166,17 +239,17 @@
 
 <script>
 var WORKER_URL = 'https://tech-translator.kevin-88a.workers.dev';
-
-var SYSTEM_PROMPT = 'You are the Everyday Tech-Translator. Your job is to help everyday people, particularly older Australians with general but not expert technology knowledge, understand technology news articles clearly, honestly and with proper sourcing. Your three guiding principles are: UNDERSTANDABLE: Plain language. Real-world comparisons where helpful. No unexplained jargon. USABLE: Honest about what kind of story this is. Proportionate. Does not tell people what to think, helps them understand enough to decide for themselves. REFERENCED: Every claim traced to its source. Primary sources identified and preferred over news articles reporting on them. The reader can verify anything you say. STEP 1 - SOURCE ACCESS: The user will provide either a URL or article text. If a URL is provided attempt to fetch and read the article. If successful confirm Article accessed with publication name. If blocked or paywalled respond that you were unable to open the article. If a headline was pasted instead of a URL ask for the actual link or article text. Always state clearly what you are working from before proceeding. STEP 2 - DETECT STORY TYPE: Identify which story type applies. Types are: Recycled (same story published before), Confirmed incident (verified event with named primary sources), Vendor announcement (company promoting its own product), Research finding (based on a study or report), Opinion (commentary or analysis), Breaking news (published within 24-48 hours), Outage story (systems unavailable), Breach story (unauthorised access to data). STEP 3 - COMPLEXITY RATING: Assess the original article. Output one of: Accessible (straightforward language, few unexplained terms), Moderate (some technical language), High (written for a technical audience). If rated High note that a general news outlet would cover this more accessibly. STEP 4 - 60-SECOND TRANSLATION: Use these section headings. ## What is this actually about? - 1 to 2 plain sentences. ## Who is this relevant to? - 1 sentence about impact to everyday people. ## Jargon busted - Table format with columns Term and Plain English, maximum 4 terms that appear in the article and change understanding. ## Story check - One classification label and one plain sentence. ## What the article did not tell you - One punchy sentence about something material that is omitted or understated. Omit this section if nothing genuine to add. ## Check the source yourself - Maximum 2 links to primary sources only. ## Want more? - Close with: Reply more for the full analysis. BREAKING NEWS: If published within 24-48 hours add a breaking news warning and split the summary into What is confirmed and What is not yet known. OUTAGE STORIES: Distinguish between Technical Resolution (cause fixed), Operational Resolution (systems back online), and Impact Resolution (effects on real people resolved). BREACH STORIES: Describe impact using Confidentiality (was private data seen), Integrity (was data changed), Availability (were systems inaccessible). Note that stolen data cannot be un-stolen. DEEP VERSION: If the user replies more, deliver: ## Full source audit - Table with Source, Type (Primary, Secondary, or Untraceable), Notes. ## What the sources actually say - Where article claims and sources diverge. ## Proportionality - Is the headline consistent with what the article establishes. ## Background context - What someone needs to know that the article assumes. ## Suggested primary reading - 2 to 3 genuine primary sources. TONE: Write for a curious intelligent person who is not a technology specialist. Do not be alarmist or dismissive. Be proportionate. Australian English. Format output using markdown with ## for section headings and pipe tables.';
-
+var SYSTEM_PROMPT = document.getElementById('system-prompt').textContent;
 var conversationHistory = [];
 var activeTab = 'text';
 var isStreaming = false;
 
 function switchTab(tab, btn) {
   activeTab = tab;
-  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  var tabs = document.querySelectorAll('.tab-btn');
+  for (var i = 0; i < tabs.length; i++) { tabs[i].classList.remove('active'); }
+  var panels = document.querySelectorAll('.tab-panel');
+  for (var i = 0; i < panels.length; i++) { panels[i].classList.remove('active'); }
   btn.classList.add('active');
   document.getElementById('tab-' + tab).classList.add('active');
 }
@@ -210,6 +283,13 @@ function getMore() {
   streamResponse();
 }
 
+function renderText(text) {
+  if (typeof marked !== 'undefined') {
+    return marked.parse(text);
+  }
+  return '<pre style="white-space:pre-wrap">' + text + '</pre>';
+}
+
 function streamResponse() {
   isStreaming = true;
   var fullText = '';
@@ -228,52 +308,47 @@ function streamResponse() {
     })
   }).then(function(resp) {
     if (!resp.ok) {
-      return resp.json().catch(function() { return {}; }).then(function(err) {
-        throw new Error(err.error && err.error.message ? err.error.message : 'Error ' + resp.status);
+      return resp.text().then(function(t) {
+        throw new Error('Server error ' + resp.status + ': ' + t.slice(0, 200));
       });
     }
     var reader = resp.body.getReader();
     var decoder = new TextDecoder();
-
-    function read() {
+    function pump() {
       return reader.read().then(function(result) {
         if (result.done) {
-          var parsed = typeof marked !== 'undefined' ? marked.parse(fullText) : fullText.replace(/
-/g, '<br>');
-          bodyEl.innerHTML = parsed;
+          bodyEl.innerHTML = renderText(fullText);
           bodyEl.querySelectorAll('a').forEach(function(a) { a.setAttribute('target', '_blank'); });
           conversationHistory.push({ role: 'assistant', content: fullText });
           document.getElementById('source-label').textContent = 'Done';
           document.getElementById('more-btn').disabled = false;
-          if (conversationHistory.filter(function(m) { return m.role === 'user'; }).length >= 2) {
-            document.getElementById('more-btn').style.display = 'none';
-          }
+          var userMsgs = conversationHistory.filter(function(m) { return m.role === 'user'; });
+          if (userMsgs.length >= 2) { document.getElementById('more-btn').style.display = 'none'; }
           isStreaming = false;
           setLoading(false);
           return;
         }
         var chunk = decoder.decode(result.value, { stream: true });
-        chunk.split('
-').forEach(function(line) {
-          if (!line.startsWith('data: ')) return;
+        var lines = chunk.split('\n');
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i];
+          if (line.indexOf('data: ') !== 0) continue;
           var data = line.slice(6).trim();
-          if (data === '[DONE]') return;
+          if (data === '[DONE]') continue;
           try {
-            var parsed = JSON.parse(data);
-            if (parsed.type === 'content_block_delta' && parsed.delta && parsed.delta.type === 'text_delta') {
-              fullText += parsed.delta.text;
-              var rendered = typeof marked !== 'undefined' ? marked.parse(fullText) : fullText.replace(/
-/g, '<br>');
-              bodyEl.innerHTML = rendered + '<span class="cursor"></span>';
+            var obj = JSON.parse(data);
+            if (obj.type === 'content_block_delta' && obj.delta && obj.delta.type === 'text_delta') {
+              fullText += obj.delta.text;
+              bodyEl.innerHTML = renderText(fullText) + '<span class="cursor"></span>';
             }
           } catch(e) {}
-        });
-        return read();
+        }
+        return pump();
       });
     }
-    return read();
+    return pump();
   }).catch(function(err) {
-    document.getElementById('result-body').innerHTML = '<div class="error-box"><strong>Something went wrong:</strong> ' + err.message + '</div>';
+    bodyEl.innerHTML = '<div class="error-box"><strong>Something went wrong:</strong> ' + err.message + '</div>';
     isStreaming = false;
     setLoading(false);
   });
@@ -289,7 +364,7 @@ function showResult() {
 function setLoading(on) {
   var btn = document.getElementById('submit-btn');
   btn.disabled = on;
-  btn.classList.toggle('loading', on);
+  if (on) { btn.classList.add('loading'); } else { btn.classList.remove('loading'); }
 }
 
 function resetTool() {
