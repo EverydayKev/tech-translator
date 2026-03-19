@@ -10,12 +10,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
     --orange: #fc8c06;
     --orange-dark: #e07a00;
     --orange-light: #fff4e6;
-    --orange-mid: #fda535;
     --ink: #1a1a1a;
     --ink-mid: #4a4a4a;
     --ink-light: #888888;
@@ -25,217 +23,49 @@
     --border-strong: #cccccc;
     --shadow: rgba(0,0,0,0.07);
   }
-
   html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Open Sans', sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    min-height: 100vh;
-    line-height: 1.6;
-  }
-
-  /* ─── HEADER ─── */
-  header {
-    background: var(--paper);
-    border-bottom: 3px solid var(--orange);
-    padding: 0.85rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .logo-img {
-    height: 52px;
-    width: auto;
-    display: block;
-  }
-  .header-tagline {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--ink-light);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-align: right;
-  }
-  .header-tagline strong {
-    display: block;
-    color: var(--orange);
-    font-size: 0.8rem;
-    font-weight: 700;
-  }
-
-  /* ─── ORANGE HERO STRIP ─── */
-  .hero-strip {
-    background: var(--orange);
-    padding: 2.5rem 1.5rem;
-    text-align: center;
-  }
-  .hero-strip h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
-    font-weight: 800;
-    color: white;
-    line-height: 1.2;
-    margin-bottom: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-  }
-  .hero-strip p {
-    color: rgba(255,255,255,0.9);
-    font-size: 1.05rem;
-    max-width: 480px;
-    margin: 0 auto;
-    font-weight: 600;
-  }
-
-  /* ─── MAIN ─── */
+  body { font-family: "Open Sans", sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; line-height: 1.6; }
+  header { background: var(--paper); border-bottom: 3px solid var(--orange); padding: 0.85rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+  .logo-img { height: 52px; width: auto; display: block; }
+  .header-tagline { font-family: "Montserrat", sans-serif; font-size: 0.75rem; font-weight: 600; color: var(--ink-light); letter-spacing: 0.08em; text-transform: uppercase; text-align: right; }
+  .header-tagline strong { display: block; color: var(--orange); font-size: 0.8rem; font-weight: 700; }
+  .hero-strip { background: var(--orange); padding: 2.5rem 1.5rem; text-align: center; }
+  .hero-strip h1 { font-family: "Montserrat", sans-serif; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: white; line-height: 1.2; margin-bottom: 0.6rem; text-transform: uppercase; }
+  .hero-strip p { color: rgba(255,255,255,0.9); font-size: 1.05rem; max-width: 480px; margin: 0 auto; font-weight: 600; }
   main { max-width: 760px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
-
-  /* ─── HOW IT WORKS ─── */
-  .how-it-works {
-    background: var(--paper);
-    border: 1px solid var(--border);
-    border-top: 4px solid var(--orange);
-    border-radius: 0 0 12px 12px;
-    padding: 1.5rem;
-    margin-bottom: 1.75rem;
-  }
-  .how-it-works h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 1rem;
-  }
+  .how-it-works { background: var(--paper); border: 1px solid var(--border); border-top: 4px solid var(--orange); border-radius: 0 0 12px 12px; padding: 1.5rem; margin-bottom: 1.75rem; }
+  .how-it-works h2 { font-family: "Montserrat", sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; }
   .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; }
   .step { display: flex; gap: 0.65rem; align-items: flex-start; }
-  .step-num {
-    flex-shrink: 0; width: 26px; height: 26px;
-    background: var(--orange); color: white;
-    border-radius: 50%; font-size: 0.8rem; font-weight: 700;
-    font-family: 'Montserrat', sans-serif;
-    display: flex; align-items: center; justify-content: center;
-  }
+  .step-num { flex-shrink: 0; width: 26px; height: 26px; background: var(--orange); color: white; border-radius: 50%; font-size: 0.8rem; font-weight: 700; font-family: "Montserrat", sans-serif; display: flex; align-items: center; justify-content: center; }
   .step p { font-size: 0.87rem; color: var(--ink-mid); line-height: 1.45; }
-
-  /* ─── INPUT CARD ─── */
-  .input-card {
-    background: var(--paper);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 2px 16px var(--shadow);
-  }
-
-  .input-tabs {
-    display: flex; gap: 0.25rem;
-    margin-bottom: 1.25rem;
-    border-bottom: 2px solid var(--border);
-  }
-  .tab-btn {
-    background: none; border: none;
-    border-bottom: 3px solid transparent;
-    padding: 0.5rem 1rem;
-    font-size: 0.88rem;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    color: var(--ink-light); cursor: pointer;
-    margin-bottom: -2px;
-    transition: all 0.2s;
-    letter-spacing: 0.01em;
-  }
+  .input-card { background: var(--paper); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 16px var(--shadow); }
+  .input-tabs { display: flex; gap: 0.25rem; margin-bottom: 1.25rem; border-bottom: 2px solid var(--border); }
+  .tab-btn { background: none; border: none; border-bottom: 3px solid transparent; padding: 0.5rem 1rem; font-size: 0.88rem; font-family: "Montserrat", sans-serif; font-weight: 700; color: var(--ink-light); cursor: pointer; margin-bottom: -2px; transition: all 0.2s; }
   .tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
   .tab-btn:hover:not(.active) { color: var(--ink-mid); }
-
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
-
-  textarea, input[type="url"] {
-    width: 100%;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.97rem;
-    color: var(--ink);
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.85rem 1rem;
-    resize: vertical;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    line-height: 1.55;
-  }
-  textarea:focus, input:focus {
-    outline: none;
-    border-color: var(--orange);
-    box-shadow: 0 0 0 3px rgba(252, 140, 6, 0.15);
-  }
+  textarea, input[type="url"] { width: 100%; font-family: "Open Sans", sans-serif; font-size: 0.97rem; color: var(--ink); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.85rem 1rem; resize: vertical; transition: border-color 0.2s, box-shadow 0.2s; line-height: 1.55; }
+  textarea:focus, input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(252,140,6,0.15); }
   textarea { min-height: 140px; }
   .input-note { font-size: 0.8rem; color: var(--ink-light); margin-top: 0.5rem; }
-
-  .submit-btn {
-    width: 100%;
-    background: var(--orange); color: white;
-    border: none; border-radius: 8px;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700; cursor: pointer;
-    margin-top: 1rem;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    transition: background 0.2s, transform 0.1s;
-    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-  }
+  .submit-btn { width: 100%; background: var(--orange); color: white; border: none; border-radius: 8px; padding: 1rem 1.5rem; font-size: 1rem; font-family: "Montserrat", sans-serif; font-weight: 700; cursor: pointer; margin-top: 1rem; letter-spacing: 0.02em; text-transform: uppercase; transition: background 0.2s, transform 0.1s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
   .submit-btn:hover:not(:disabled) { background: var(--orange-dark); }
   .submit-btn:active:not(:disabled) { transform: scale(0.99); }
   .submit-btn:disabled { background: var(--ink-light); cursor: not-allowed; }
-  .submit-btn .spinner {
-    width: 18px; height: 18px;
-    border: 2.5px solid rgba(255,255,255,0.35);
-    border-top-color: white; border-radius: 50%;
-    animation: spin 0.7s linear infinite; display: none;
-  }
+  .submit-btn .spinner { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.35); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
   .submit-btn.loading .spinner { display: block; }
   .submit-btn.loading .btn-label { display: none; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ─── RESULT ─── */
   #result-section { display: none; }
   #result-section.visible { display: block; }
-
-  .result-card {
-    background: var(--paper);
-    border: 1px solid var(--border);
-    border-top: 4px solid var(--orange);
-    border-radius: 0 0 12px 12px;
-    padding: 1.75rem 1.5rem;
-    box-shadow: 0 2px 16px var(--shadow);
-    margin-bottom: 1rem;
-  }
-  .result-meta {
-    display: flex; align-items: center; gap: 0.6rem;
-    margin-bottom: 1.25rem; padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .badge {
-    background: var(--orange); color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.7rem; font-weight: 700;
-    padding: 0.25rem 0.7rem; border-radius: 20px;
-    letter-spacing: 0.06em; text-transform: uppercase;
-  }
+  .result-card { background: var(--paper); border: 1px solid var(--border); border-top: 4px solid var(--orange); border-radius: 0 0 12px 12px; padding: 1.75rem 1.5rem; box-shadow: 0 2px 16px var(--shadow); margin-bottom: 1rem; }
+  .result-meta { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+  .badge { background: var(--orange); color: white; font-family: "Montserrat", sans-serif; font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.7rem; border-radius: 20px; letter-spacing: 0.06em; text-transform: uppercase; }
   .source-label { font-size: 0.83rem; color: var(--ink-light); }
-
   .result-body { font-size: 1rem; line-height: 1.75; color: var(--ink); }
-  .result-body h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem; font-weight: 700;
-    color: var(--orange); margin: 1.6rem 0 0.5rem;
-    text-transform: uppercase; letter-spacing: 0.06em;
-  }
+  .result-body h2 { font-family: "Montserrat", sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--orange); margin: 1.6rem 0 0.5rem; text-transform: uppercase; letter-spacing: 0.06em; }
   .result-body h2:first-child { margin-top: 0; }
   .result-body h3 { font-size: 0.95rem; font-weight: 600; color: var(--ink-mid); margin: 1.25rem 0 0.35rem; }
   .result-body p { margin-bottom: 0.75rem; }
@@ -246,80 +76,27 @@
   .result-body a:hover { color: var(--orange-dark); }
   .result-body strong { font-weight: 700; }
   .result-body em { font-style: italic; }
-  .result-body code {
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: 4px; padding: 0.1em 0.35em; font-size: 0.9em; font-family: monospace;
-  }
+  .result-body code { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 0.1em 0.35em; font-size: 0.9em; font-family: monospace; }
   .result-body hr { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
-  .result-body table {
-    width: 100%; border-collapse: collapse; font-size: 0.93rem;
-    margin: 0.85rem 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
-  }
-  .result-body th {
-    background: var(--orange-light);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700; font-size: 0.75rem;
-    text-transform: uppercase; letter-spacing: 0.06em; color: var(--orange-dark);
-    padding: 0.65rem 0.9rem; text-align: left; border-bottom: 1px solid var(--border);
-  }
+  .result-body table { width: 100%; border-collapse: collapse; font-size: 0.93rem; margin: 0.85rem 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .result-body th { background: var(--orange-light); font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--orange-dark); padding: 0.65rem 0.9rem; text-align: left; border-bottom: 1px solid var(--border); }
   .result-body td { padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--border); vertical-align: top; }
   .result-body tr:last-child td { border-bottom: none; }
   .result-body tr:nth-child(even) td { background: #fafafa; }
-
-  .cursor {
-    display: inline-block; width: 2px; height: 1em;
-    background: var(--orange); margin-left: 2px;
-    animation: blink 0.8s step-end infinite; vertical-align: text-bottom;
-  }
+  .cursor { display: inline-block; width: 2px; height: 1em; background: var(--orange); margin-left: 2px; animation: blink 0.8s step-end infinite; vertical-align: text-bottom; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-  /* ─── ACTION BUTTONS ─── */
   .action-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.75rem; }
-  .more-btn {
-    background: var(--ink); color: white; border: none;
-    border-radius: 8px; padding: 0.8rem 1.35rem;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.88rem; font-weight: 700;
-    letter-spacing: 0.03em; text-transform: uppercase;
-    cursor: pointer; transition: background 0.2s;
-  }
+  .more-btn { background: var(--ink); color: white; border: none; border-radius: 8px; padding: 0.8rem 1.35rem; font-family: "Montserrat", sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
   .more-btn:hover { background: #333; }
   .more-btn:disabled { background: var(--ink-light); cursor: not-allowed; }
-  .new-btn {
-    background: transparent; color: var(--ink-mid);
-    border: 2px solid var(--border-strong); border-radius: 8px;
-    padding: 0.8rem 1.35rem;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.88rem; font-weight: 700;
-    letter-spacing: 0.03em; text-transform: uppercase;
-    cursor: pointer; transition: all 0.2s;
-  }
+  .new-btn { background: transparent; color: var(--ink-mid); border: 2px solid var(--border-strong); border-radius: 8px; padding: 0.8rem 1.35rem; font-family: "Montserrat", sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
   .new-btn:hover { border-color: var(--ink-mid); color: var(--ink); }
-
-  .error-box {
-    background: #fff4e6; border: 1px solid #fda535;
-    border-radius: 10px; padding: 1rem 1.25rem;
-    color: var(--orange-dark); font-size: 0.93rem; line-height: 1.55;
-  }
-  .error-box strong { display: block; margin-bottom: 0.3rem; font-family: 'Montserrat', sans-serif; }
-
-  /* ─── FOOTER ─── */
-  footer {
-    background: var(--ink);
-    text-align: center; padding: 1.5rem 1rem;
-    font-size: 0.8rem; color: rgba(255,255,255,0.45);
-    margin-top: 3rem;
-  }
+  .error-box { background: #fff4e6; border: 1px solid #fda535; border-radius: 10px; padding: 1rem 1.25rem; color: var(--orange-dark); font-size: 0.93rem; line-height: 1.55; }
+  .error-box strong { display: block; margin-bottom: 0.3rem; font-family: "Montserrat", sans-serif; }
+  footer { background: var(--ink); text-align: center; padding: 1.5rem 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 3rem; }
   footer a { color: var(--orange); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
-
-  @media (max-width: 520px) {
-    header { padding: 0.75rem 1rem; }
-    .logo-img { height: 40px; }
-    .hero-strip { padding: 2rem 1rem; }
-    .steps { grid-template-columns: 1fr; }
-    .result-card { padding: 1.25rem 1rem; }
-  }
+  @media (max-width: 520px) { header { padding: 0.75rem 1rem; } .logo-img { height: 40px; } .hero-strip { padding: 2rem 1rem; } .steps { grid-template-columns: 1fr; } .result-card { padding: 1.25rem 1rem; } }
 </style>
 </head>
 <body>
@@ -354,20 +131,17 @@
       <button class="tab-btn active" onclick="switchTab('text', this)">Paste article text</button>
       <button class="tab-btn" onclick="switchTab('url', this)">Paste a URL</button>
     </div>
-
     <div id="tab-text" class="tab-panel active">
-      <textarea id="article-text" placeholder="Copy and paste the full article here…" rows="7"></textarea>
+      <textarea id="article-text" placeholder="Copy and paste the full article here..." rows="7"></textarea>
       <p class="input-note">Tip: Select all the text on the news page (Ctrl+A or Cmd+A), copy it, and paste it here.</p>
     </div>
-
     <div id="tab-url" class="tab-panel">
       <input type="url" id="article-url" placeholder="https://www.example.com/some-tech-article" />
-      <p class="input-note">Some news sites block automatic access — if that happens, we'll ask you to paste the text instead.</p>
+      <p class="input-note">Some news sites block automatic access — if that happens, we will ask you to paste the text instead.</p>
     </div>
-
     <button class="submit-btn" id="submit-btn" onclick="translate()">
       <div class="spinner"></div>
-      <span class="btn-label">Translate this article →</span>
+      <span class="btn-label">Translate this article</span>
     </button>
   </div>
 
@@ -375,13 +149,13 @@
     <div class="result-card">
       <div class="result-meta">
         <span class="badge">Translation</span>
-        <span class="source-label" id="source-label">Analysing…</span>
+        <span class="source-label" id="source-label">Analysing...</span>
       </div>
       <div class="result-body" id="result-body"></div>
     </div>
     <div class="action-row">
-      <button class="more-btn" id="more-btn" onclick="getMore()">📖 Full Analysis</button>
-      <button class="new-btn" onclick="resetTool()">← New Article</button>
+      <button class="more-btn" id="more-btn" onclick="getMore()">Full Analysis</button>
+      <button class="new-btn" onclick="resetTool()">New Article</button>
     </div>
   </section>
 </main>
@@ -391,321 +165,129 @@
 </footer>
 
 <script>
-const WORKER_URL = 'https://tech-translator.kevin-88a.workers.dev';
+var WORKER_URL = 'https://tech-translator.kevin-88a.workers.dev';
 
-const SYSTEM_PROMPT = `You are the Everyday Tech-Translator. Your job is to help everyday people — particularly older Australians with general but not expert technology knowledge — understand technology news articles clearly, honestly and with proper sourcing.
+var SYSTEM_PROMPT = 'You are the Everyday Tech-Translator. Your job is to help everyday people, particularly older Australians with general but not expert technology knowledge, understand technology news articles clearly, honestly and with proper sourcing. Your three guiding principles are: UNDERSTANDABLE: Plain language. Real-world comparisons where helpful. No unexplained jargon. USABLE: Honest about what kind of story this is. Proportionate. Does not tell people what to think, helps them understand enough to decide for themselves. REFERENCED: Every claim traced to its source. Primary sources identified and preferred over news articles reporting on them. The reader can verify anything you say. STEP 1 - SOURCE ACCESS: The user will provide either a URL or article text. If a URL is provided attempt to fetch and read the article. If successful confirm Article accessed with publication name. If blocked or paywalled respond that you were unable to open the article. If a headline was pasted instead of a URL ask for the actual link or article text. Always state clearly what you are working from before proceeding. STEP 2 - DETECT STORY TYPE: Identify which story type applies. Types are: Recycled (same story published before), Confirmed incident (verified event with named primary sources), Vendor announcement (company promoting its own product), Research finding (based on a study or report), Opinion (commentary or analysis), Breaking news (published within 24-48 hours), Outage story (systems unavailable), Breach story (unauthorised access to data). STEP 3 - COMPLEXITY RATING: Assess the original article. Output one of: Accessible (straightforward language, few unexplained terms), Moderate (some technical language), High (written for a technical audience). If rated High note that a general news outlet would cover this more accessibly. STEP 4 - 60-SECOND TRANSLATION: Use these section headings. ## What is this actually about? - 1 to 2 plain sentences. ## Who is this relevant to? - 1 sentence about impact to everyday people. ## Jargon busted - Table format with columns Term and Plain English, maximum 4 terms that appear in the article and change understanding. ## Story check - One classification label and one plain sentence. ## What the article did not tell you - One punchy sentence about something material that is omitted or understated. Omit this section if nothing genuine to add. ## Check the source yourself - Maximum 2 links to primary sources only. ## Want more? - Close with: Reply more for the full analysis. BREAKING NEWS: If published within 24-48 hours add a breaking news warning and split the summary into What is confirmed and What is not yet known. OUTAGE STORIES: Distinguish between Technical Resolution (cause fixed), Operational Resolution (systems back online), and Impact Resolution (effects on real people resolved). BREACH STORIES: Describe impact using Confidentiality (was private data seen), Integrity (was data changed), Availability (were systems inaccessible). Note that stolen data cannot be un-stolen. DEEP VERSION: If the user replies more, deliver: ## Full source audit - Table with Source, Type (Primary, Secondary, or Untraceable), Notes. ## What the sources actually say - Where article claims and sources diverge. ## Proportionality - Is the headline consistent with what the article establishes. ## Background context - What someone needs to know that the article assumes. ## Suggested primary reading - 2 to 3 genuine primary sources. TONE: Write for a curious intelligent person who is not a technology specialist. Do not be alarmist or dismissive. Be proportionate. Australian English. Format output using markdown with ## for section headings and pipe tables.';
 
-Your three guiding principles are:
-- UNDERSTANDABLE: Plain language. Real-world comparisons where helpful. No unexplained jargon.
-- USABLE: Honest about what kind of story this is. Proportionate. Does not tell people what to think — helps them understand enough to decide for themselves.
-- REFERENCED: Every claim traced to its source. Primary sources identified and preferred over news articles reporting on them. The reader can verify anything you say.
-
-════════════════════════════════════════════════
-STEP 1 — SOURCE ACCESS
-════════════════════════════════════════════════
-The user will provide either a URL or article text.
-
-If a URL is provided:
-- Attempt to fetch and read the article.
-- If successful, confirm: "Article accessed ✅ [publication name]"
-- If blocked or paywalled, respond: "I wasn't able to open that article — the site blocked the request. Could you paste the article text directly?"
-- If a headline was pasted instead of a URL, respond: "It looks like you've pasted the headline rather than the link. Could you paste the web address from your browser, or copy and paste the article text?"
-
-If the news article reports on a primary source (company statement, police report, government advisory, official notice), attempt to locate and use that primary source directly — it is always preferred over secondary reporting.
-
-If the source has a commercial interest in the story — a competitor, a vendor, a company with a product to sell — note this plainly in the source line. It does not disqualify the source but the reader should know.
-
-Always state clearly what you are working from before proceeding.
-
-════════════════════════════════════════════════
-STEP 2 — DETECT STORY TYPE
-════════════════════════════════════════════════
-Before proceeding, identify which story type applies. More than one may apply.
-
-Standard story types:
-  🔁 Recycled — same story published before, often without new substance
-  🚨 Confirmed incident — verified event with named primary sources
-  📣 Vendor announcement — company promoting its own product or service
-  🔬 Research finding — based on a study or report
-  💬 Opinion — commentary or analysis, not reported fact
-
-Special handling required — see dedicated sections below:
-  ⚡ Breaking news — published within 24-48 hours of the event
-  🔴 Outage story — systems, services or infrastructure unavailable
-  🔒 Breach story — unauthorised access to data
-
-════════════════════════════════════════════════
-STEP 3 — COMPLEXITY RATING
-════════════════════════════════════════════════
-Assess the original article on two measures:
-
-a) Linguistic complexity — sentence length and vocabulary level
-b) Jargon density — how many technical terms are used without explanation
-
-Output one of three labels with a single plain-English reason:
-
-  📊 Accessible — straightforward language, few unexplained terms
-  📊 Moderate — some technical language, readable with a little help
-  📊 High — written for a technical audience, heavy on assumed knowledge
-
-If rated High, add one sentence: "This source regularly writes for a technical audience. A general news outlet would likely cover this more accessibly."
-
-Do not name or recommend specific alternative outlets.
-
-════════════════════════════════════════════════
-STEP 4 — 60-SECOND TRANSLATION
-════════════════════════════════════════════════
-Deliver the following sections in order. Total body text (excluding tables) must not exceed 200 words. Every section must earn its place — if a section has nothing useful to add, omit it rather than pad.
-
-## What's this actually about?
-1–2 plain sentences. Use a real-world comparison if it genuinely helps. No jargon.
-
-## Who's this relevant to?
-1 sentence. Lead with impact to everyday people as customers and members of the public — not as technical users of the affected system.
-
-## Jargon busted
-Table format. Maximum 4 terms.
-Select only terms that:
-  (a) appear in the article, and
-  (b) change how you understand the story if you don't know them.
-Do not include terms the audience likely already knows.
-Format: | Term | Plain English |
-
-## Story check
-One classification label from Step 2, followed by one plain sentence.
-
-## What the article didn't tell you
-One punchy sentence — something material that the article omits, understates or gets wrong, that changes how the reader should hold the information. If there is nothing genuinely worth adding, omit this section entirely. Do not manufacture an insight.
-
-## Check the source yourself
-Maximum 2 links. Primary sources only — official statements, government advisories, research papers. Not further news articles about the same story.
-
-## Want more?
-Close every response with exactly this line, adjusted only where the story genuinely warrants the second sentence:
-
-  "📖 Reply 'more' for the full analysis."
-
-  If the source trail, omissions or context are particularly worth examining, add one specific reason:
-  "📖 Reply 'more' for the full analysis — [one specific reason this story rewards a closer look]."
-
-════════════════════════════════════════════════
-BREAKING NEWS MODE  ⚡
-════════════════════════════════════════════════
-Activate if article was published within 24-48 hours of the event it describes.
-
-Add at the top of the output:
-  ⚡ Breaking news — some details may change as the situation develops.
-
-Replace "What's this actually about?" with a two-part structure:
-
-  ✅ What is confirmed:
-  Only include facts attributed to a named primary source.
-
-  ❓ What is not yet known:
-  Name the specific unknowns honestly — cause, scale, who is responsible, duration.
-
-════════════════════════════════════════════════
-OUTAGE STORY MODE  🔴
-════════════════════════════════════════════════
-Activate when the story involves systems, services or infrastructure becoming unavailable.
-
-Apply RESOLUTION FRAMING — distinguish clearly between three separate states:
-  TECHNICAL RESOLUTION — Has the cause been fixed?
-  OPERATIONAL RESOLUTION — Are affected systems and services back online?
-  IMPACT RESOLUTION — Are the downstream effects on real people resolved?
-
-If the article claims the incident is "resolved", "fixed" or "contained" without distinguishing these three states, name the gap explicitly.
-
-Plain English equivalent to offer: "They've fixed what caused it. That's not the same as fixing what it caused."
-
-════════════════════════════════════════════════
-BREACH STORY MODE  🔒
-════════════════════════════════════════════════
-Activate when the story involves unauthorised access to data.
-
-Apply the following to describe the actual impact. Use plain language:
-  CONFIDENTIALITY — was private data seen by someone who shouldn't have seen it?
-  INTEGRITY — was data changed, deleted or corrupted?
-  AVAILABILITY — were systems or data made inaccessible?
-
-State which of these applies — more than one may.
-
-Stolen data cannot be un-stolen. Closing the door does not retrieve what left through it. State this plainly if the article implies otherwise.
-
-════════════════════════════════════════════════
-OFFICIAL NOTICE SCRUTINY
-════════════════════════════════════════════════
-Activate when the source is a company breach notification, outage advisory or incident disclosure.
-
-Note to reader at the top:
-  "This is an official notice. It is written to meet legal obligations, not to inform customers in plain English. The translation below unpacks what it is actually saying."
-
-Flag where present: passive voice hiding responsibility, leading with what wasn't taken, hedged quantification, resolution conflation, scope limitation language.
-
-════════════════════════════════════════════════
-STEP 5 — DEEP VERSION (on request only)
-════════════════════════════════════════════════
-If the user replies "more", deliver the following additional sections. Build on the 60-second version — do not repeat what was already said.
-
-## Full source audit
-Table: | Source | Type | Notes |
-Type: ✅ Primary | ⚠️ Secondary | ❌ Untraceable
-
-## What the sources actually say
-Where the article's claims and its cited sources diverge, state this plainly.
-
-## Proportionality
-Is the headline consistent with what the article actually establishes? One short paragraph.
-
-## Background context
-What does someone need to know about this topic that the article assumes?
-
-## Suggested primary reading
-2-3 sources where the reader can verify core claims directly. Must be genuine primary sources.
-
-════════════════════════════════════════════════
-TONE AND STYLE — applies to all versions
-════════════════════════════════════════════════
-- Write as if explaining to a curious, intelligent person who is not a technology specialist.
-- Do not be alarmist. Do not be dismissive. Be proportionate.
-- Do not tell the reader what to do or what to conclude. Give them what they need to decide for themselves.
-- Australian English spelling and context where relevant.
-- If a story has no Australian relevance, say so in one clause — do not force local context where none exists.
-- Format all output using markdown: ## for section headings, tables with | pipes |, **bold** for key terms.`;
-
-let conversationHistory = [];
-let activeTab = 'text';
-let isStreaming = false;
+var conversationHistory = [];
+var activeTab = 'text';
+var isStreaming = false;
 
 function switchTab(tab, btn) {
   activeTab = tab;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
   btn.classList.add('active');
   document.getElementById('tab-' + tab).classList.add('active');
 }
 
-async function translate() {
+function translate() {
   if (isStreaming) return;
-  let userContent = '';
+  var userContent = '';
   if (activeTab === 'text') {
     userContent = document.getElementById('article-text').value.trim();
     if (!userContent) { alert('Please paste some article text first.'); return; }
   } else {
-    const url = document.getElementById('article-url').value.trim();
+    var url = document.getElementById('article-url').value.trim();
     if (!url) { alert('Please enter a URL first.'); return; }
     userContent = 'Please translate this article: ' + url;
   }
   conversationHistory = [{ role: 'user', content: userContent }];
   showResult();
-  document.getElementById('source-label').textContent = 'Analysing article…';
+  document.getElementById('source-label').textContent = 'Analysing article...';
   document.getElementById('more-btn').disabled = true;
   setLoading(true);
-  await streamResponse();
+  streamResponse();
 }
 
-async function getMore() {
+function getMore() {
   if (isStreaming || conversationHistory.length === 0) return;
   conversationHistory.push({ role: 'user', content: 'more' });
-  document.getElementById('source-label').textContent = 'Full analysis…';
+  document.getElementById('source-label').textContent = 'Full analysis...';
   document.getElementById('more-btn').disabled = true;
   document.getElementById('result-body').innerHTML = '';
   setLoading(true);
-  await streamResponse();
+  streamResponse();
 }
 
-
-// Fallback markdown renderer in case marked fails to load
-function renderMarkdown(text) {
-  if (typeof marked !== 'undefined') return marked.parse(text);
-  return text
-    .replace(/^## (.+)$/gm, '<h2></h2>')
-    .replace(/^### (.+)$/gm, '<h3></h3>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong></strong>')
-    .replace(/\*(.+?)\*/g, '<em></em>')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href=""></a>')
-    .replace(/^\|(.+)\|$/gm, (m) => {
-      const cells = m.split('|').filter(c => c.trim() && !c.match(/^[-: ]+$/));
-      return cells.length ? '<tr>' + cells.map(c => '<td>' + c.trim() + '</td>').join('') + '</tr>' : '';
-    })
-    .replace(/(<tr>.*<\/tr>)/gs, '<table></table>')
-    .replace(/^(?!<[ht]).+$/gm, '<p>$&</p>')
-    .replace(/<p><\/p>/g, '');
-}
-
-async function streamResponse() {
+function streamResponse() {
   isStreaming = true;
-  let fullText = '';
-  const bodyEl = document.getElementById('result-body');
+  var fullText = '';
+  var bodyEl = document.getElementById('result-body');
   bodyEl.innerHTML = '<span class="cursor"></span>';
 
-  try {
-    const resp = await fetch(WORKER_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-opus-4-5',
-        max_tokens: 1500,
-        system: SYSTEM_PROMPT,
-        messages: conversationHistory,
-        stream: true
-      })
-    });
-
+  fetch(WORKER_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-opus-4-5',
+      max_tokens: 1500,
+      system: SYSTEM_PROMPT,
+      messages: conversationHistory,
+      stream: true
+    })
+  }).then(function(resp) {
     if (!resp.ok) {
-      const err = await resp.json().catch(() => ({}));
-      throw new Error(err.error?.message || 'Error ' + resp.status);
+      return resp.json().catch(function() { return {}; }).then(function(err) {
+        throw new Error(err.error && err.error.message ? err.error.message : 'Error ' + resp.status);
+      });
     }
+    var reader = resp.body.getReader();
+    var decoder = new TextDecoder();
 
-    const reader = resp.body.getReader();
-    const decoder = new TextDecoder();
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      const chunk = decoder.decode(value, { stream: true });
-      for (const line of chunk.split('\n')) {
-        if (!line.startsWith('data: ')) continue;
-        const data = line.slice(6).trim();
-        if (data === '[DONE]') continue;
-        try {
-          const parsed = JSON.parse(data);
-          if (parsed.type === 'content_block_delta' && parsed.delta?.type === 'text_delta') {
-            fullText += parsed.delta.text;
-            bodyEl.innerHTML = renderMarkdown(fullText) + '<span class="cursor"></span>';
-            bodyEl.querySelectorAll('a').forEach(a => a.setAttribute('target', '_blank'));
+    function read() {
+      return reader.read().then(function(result) {
+        if (result.done) {
+          var parsed = typeof marked !== 'undefined' ? marked.parse(fullText) : fullText.replace(/
+/g, '<br>');
+          bodyEl.innerHTML = parsed;
+          bodyEl.querySelectorAll('a').forEach(function(a) { a.setAttribute('target', '_blank'); });
+          conversationHistory.push({ role: 'assistant', content: fullText });
+          document.getElementById('source-label').textContent = 'Done';
+          document.getElementById('more-btn').disabled = false;
+          if (conversationHistory.filter(function(m) { return m.role === 'user'; }).length >= 2) {
+            document.getElementById('more-btn').style.display = 'none';
           }
-        } catch(_) {}
-      }
+          isStreaming = false;
+          setLoading(false);
+          return;
+        }
+        var chunk = decoder.decode(result.value, { stream: true });
+        chunk.split('
+').forEach(function(line) {
+          if (!line.startsWith('data: ')) return;
+          var data = line.slice(6).trim();
+          if (data === '[DONE]') return;
+          try {
+            var parsed = JSON.parse(data);
+            if (parsed.type === 'content_block_delta' && parsed.delta && parsed.delta.type === 'text_delta') {
+              fullText += parsed.delta.text;
+              var rendered = typeof marked !== 'undefined' ? marked.parse(fullText) : fullText.replace(/
+/g, '<br>');
+              bodyEl.innerHTML = rendered + '<span class="cursor"></span>';
+            }
+          } catch(e) {}
+        });
+        return read();
+      });
     }
-
-    bodyEl.innerHTML = renderMarkdown(fullText);
-    bodyEl.querySelectorAll('a').forEach(a => a.setAttribute('target', '_blank'));
-    conversationHistory.push({ role: 'assistant', content: fullText });
-    document.getElementById('source-label').textContent = 'Done';
-    document.getElementById('more-btn').disabled = false;
-
-    if (conversationHistory.filter(m => m.role === 'user').length >= 2) {
-      document.getElementById('more-btn').style.display = 'none';
-    }
-
-  } catch (err) {
-    bodyEl.innerHTML = `<div class="error-box"><strong>Something went wrong:</strong> ${err.message}<br><small style="opacity:0.75">Check your Worker is deployed and the URL is correct.</small></div>`;
-  } finally {
+    return read();
+  }).catch(function(err) {
+    document.getElementById('result-body').innerHTML = '<div class="error-box"><strong>Something went wrong:</strong> ' + err.message + '</div>';
     isStreaming = false;
     setLoading(false);
-  }
+  });
 }
 
 function showResult() {
-  const s = document.getElementById('result-section');
+  var s = document.getElementById('result-section');
   s.classList.add('visible');
   s.scrollIntoView({ behavior: 'smooth', block: 'start' });
   document.getElementById('more-btn').style.display = '';
 }
 
 function setLoading(on) {
-  const btn = document.getElementById('submit-btn');
+  var btn = document.getElementById('submit-btn');
   btn.disabled = on;
   btn.classList.toggle('loading', on);
 }
@@ -718,7 +300,7 @@ function resetTool() {
   document.getElementById('result-body').innerHTML = '';
   document.getElementById('more-btn').disabled = false;
   document.getElementById('more-btn').style.display = '';
-  document.getElementById('source-label').textContent = 'Analysing…';
+  document.getElementById('source-label').textContent = 'Analysing...';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
