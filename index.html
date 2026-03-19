@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -614,6 +614,25 @@ async function getMore() {
   await streamResponse();
 }
 
+
+// Fallback markdown renderer in case marked fails to load
+function renderMarkdown(text) {
+  if (typeof marked !== 'undefined') return marked.parse(text);
+  return text
+    .replace(/^## (.+)$/gm, '<h2></h2>')
+    .replace(/^### (.+)$/gm, '<h3></h3>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong></strong>')
+    .replace(/\*(.+?)\*/g, '<em></em>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href=""></a>')
+    .replace(/^\|(.+)\|$/gm, (m) => {
+      const cells = m.split('|').filter(c => c.trim() && !c.match(/^[-: ]+$/));
+      return cells.length ? '<tr>' + cells.map(c => '<td>' + c.trim() + '</td>').join('') + '</tr>' : '';
+    })
+    .replace(/(<tr>.*<\/tr>)/gs, '<table></table>')
+    .replace(/^(?!<[ht]).+$/gm, '<p>$&</p>')
+    .replace(/<p><\/p>/g, '');
+}
+
 async function streamResponse() {
   isStreaming = true;
   let fullText = '';
@@ -653,14 +672,14 @@ async function streamResponse() {
           const parsed = JSON.parse(data);
           if (parsed.type === 'content_block_delta' && parsed.delta?.type === 'text_delta') {
             fullText += parsed.delta.text;
-            bodyEl.innerHTML = marked.parse(fullText) + '<span class="cursor"></span>';
+            bodyEl.innerHTML = renderMarkdown(fullText) + '<span class="cursor"></span>';
             bodyEl.querySelectorAll('a').forEach(a => a.setAttribute('target', '_blank'));
           }
         } catch(_) {}
       }
     }
 
-    bodyEl.innerHTML = marked.parse(fullText);
+    bodyEl.innerHTML = renderMarkdown(fullText);
     bodyEl.querySelectorAll('a').forEach(a => a.setAttribute('target', '_blank'));
     conversationHistory.push({ role: 'assistant', content: fullText });
     document.getElementById('source-label').textContent = 'Done';
